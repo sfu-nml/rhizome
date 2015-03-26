@@ -1,4 +1,4 @@
-#include "Util.h"
+#include "RhiUtil.h"
 
 bool SaveBitmap(const char *fileName, BYTE *data, int width, int height)
 {

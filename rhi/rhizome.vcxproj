@@ -82,22 +82,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="rhi-audio\AudioCapture.cpp" />
-    <ClCompile Include="rhi-encoder-hw-nvh264\NVH264.cpp" />
-    <ClCompile Include="rhi-encoder-sw-x264\x264Encoder.cpp" />
-    <ClCompile Include="rhi-server-live555\H264LiveServerMediaSession.cpp" />
-    <ClCompile Include="rhi-server-live555\LiveSourceWithx264.cpp" />
+    <ClCompile Include="rhi-audio\RhiAudioCapture.cpp" />
+    <ClCompile Include="rhi-encoder-hw-nvh264\RhiNVH264.cpp" />
+    <ClCompile Include="rhi-encoder-sw-x264\Rhix264Encoder.cpp" />
+    <ClCompile Include="rhi-server-live555\RhiH264LiveServerMediaSession.cpp" />
+    <ClCompile Include="rhi-server-live555\RhiLiveSourceWithx264.cpp" />
     <ClCompile Include="rhi-server\RhiServer.cpp" />
-    <ClCompile Include="rhi-utils\Util.cpp" />
+    <ClCompile Include="rhi-utils\RhiUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="rhi-audio\AudioCapture.h" />
-    <ClInclude Include="rhi-encoder-hw-nvh264\NVH264.h" />
-    <ClInclude Include="rhi-encoder-sw-x264\X264Encoder.h" />
-    <ClInclude Include="rhi-server-live555\H264LiveServerMediaSession.h" />
-    <ClInclude Include="rhi-server-live555\LiveSourceWithx264.h" />
+    <ClInclude Include="rhi-audio\RhiAudioCapture.h" />
+    <ClInclude Include="rhi-encoder-hw-nvh264\RhiNVH264.h" />
+    <ClInclude Include="rhi-encoder-sw-x264\Rhix264Encoder.h" />
+    <ClInclude Include="rhi-server-live555\RhiH264LiveServerMediaSession.h" />
+    <ClInclude Include="rhi-server-live555\RhiLiveSourceWithx264.h" />
     <ClInclude Include="rhi-server\RhiServer.h" />
-    <ClInclude Include="rhi-utils\Util.h" />
+    <ClInclude Include="rhi-utils\RhiUtil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="rhi-utils\libconfig.h++" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

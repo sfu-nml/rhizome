@@ -1,7 +1,7 @@
 #include <queue>
 #include <time.h>
 #include <H264VideoStreamFramer.hh>
-#include "NVH264.h"
+#include "RhiNVH264.h"
 #include <iostream>
 #include <windows.h>
 #include <tchar.h>

@@ -11,12 +11,11 @@
 #include "liveMedia.hh"
 #include "BasicUsageEnvironment.hh"
 #include "OnDemandServerMediaSubsession.hh"
-#include "LiveSourceWithx264.h"
 #include "BasicUsageEnvironment.hh"
 #include "GroupsockHelper.hh"
 #include "WindowsAudioInputDevice_noMixer.hh"
 
-#include <string>
+#include "RhiLiveSourceWithx264.h"
 
 class RhiServer
 {

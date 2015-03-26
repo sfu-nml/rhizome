@@ -1,4 +1,4 @@
-#include "H264LiveServerMediaSession.h"
+#include "RhiH264LiveServerMediaSession.h"
 
 
 H264LiveServerMediaSession* H264LiveServerMediaSession::createNew(UsageEnvironment& env, bool reuseFirstSource)

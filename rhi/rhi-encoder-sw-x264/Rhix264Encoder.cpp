@@ -1,4 +1,4 @@
-#include "x264Encoder.h"
+#include "Rhix264Encoder.h"
 
 
 x264Encoder::x264Encoder(void)

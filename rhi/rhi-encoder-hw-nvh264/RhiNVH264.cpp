@@ -61,7 +61,7 @@
 * comments to the code, the above Disclaimer and U.S. Government End
 * Users Notice.
 */
-#include "NVH264.h"
+#include "RhiNVH264.h"
 
 NVH264::NVH264()
 {

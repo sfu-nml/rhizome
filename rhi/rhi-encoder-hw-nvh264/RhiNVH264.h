@@ -11,7 +11,7 @@
 #include <stdio.h> 
 #include <iostream>
 #include <sstream>
-#include "x264Encoder.h"
+#include "Rhix264Encoder.h"
 #include <Util.h>
 
 
