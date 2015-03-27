@@ -1,3 +1,6 @@
+#ifndef __RHISERVER_SOURCE_H__
+#define __RHISERVER_SOURCE_H__
+
 #include <queue>
 #include <time.h>
 #include <H264VideoStreamFramer.hh>
@@ -39,3 +42,5 @@ private:
 	bool softwareMode;
 	bool raw;
 }; 
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef AUDIOCAPTURE_H
-#define AUDIOCAPTURE_H
+#ifndef __RHI_AUDIOCAPTURE_H__
+#define __RHI_AUDIOCAPTURE_H__
 
 #include "liveMedia.hh"
 #include "BasicUsageEnvironment.hh"

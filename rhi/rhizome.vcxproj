@@ -77,7 +77,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>false</OptimizeReferences>
       <AdditionalLibraryDirectories>..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;libWindowsAudioInputDevice_nomixer.lib;winmm.lib;ws2_32.lib;swscale.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;swresample.lib;libx264.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libBasicUsageEnvironment.lib;libgroupsock.lib;libliveMedia.lib;libUsageEnvironment.lib;libWindowsAudioInputDevice_nomixer.lib;winmm.lib;ws2_32.lib;swscale.lib;avcodec.lib;avdevice.lib;avfilter.lib;avformat.lib;avutil.lib;swresample.lib;libx264.lib;libconfig++.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -97,6 +97,7 @@
     <ClInclude Include="rhi-server-live555\RhiH264LiveServerMediaSession.h" />
     <ClInclude Include="rhi-server-live555\RhiLiveSourceWithx264.h" />
     <ClInclude Include="rhi-server\RhiServer.h" />
+    <ClInclude Include="rhi-utils\RhiCommon.h" />
     <ClInclude Include="rhi-utils\RhiUtil.h" />
   </ItemGroup>
   <ItemGroup>

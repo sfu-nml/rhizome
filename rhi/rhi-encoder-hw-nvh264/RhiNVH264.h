@@ -1,5 +1,5 @@
-#ifndef NvFBCH264_H
-#define NvFBCH264_H
+#ifndef __RHI_NvFBCH264_H__
+#define __RHI_NvFBCH264_H__
 
 
 #include <NvFBCLibrary.h>

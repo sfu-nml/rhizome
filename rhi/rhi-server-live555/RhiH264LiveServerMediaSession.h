@@ -1,12 +1,15 @@
+#ifndef __RHISERVER_SESSION_H__
+#define __RHISERVER_SESSION_H__
+
 #include "liveMedia.hh"
 #include "OnDemandServerMediaSubsession.hh"
 #include "RhiLiveSourceWithx264.h"
 #include <string>
 using std::string;
+
 class H264LiveServerMediaSession:public OnDemandServerMediaSubsession
 {
 public:
-
     static H264LiveServerMediaSession* createNew(UsageEnvironment& env, bool reuseFirstSource);
     void checkForAuxSDPLine1();
     void afterPlayingDummy1();
@@ -23,3 +26,5 @@ private:
     char fDoneFlag;
     RTPSink* fDummySink;
 }; 
+
+#endif

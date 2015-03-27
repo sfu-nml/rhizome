@@ -1,5 +1,5 @@
-#ifndef FFH264Encoder_H
-#define FFH264Encoder_H
+#ifndef __RHI_FFH264Encoder_H__
+#define __RHI_FFH264Encoder_H__
 
 #ifdef __cplusplus
 #define __STDINT_MACROS

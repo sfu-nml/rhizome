@@ -62,6 +62,9 @@
     <ClInclude Include="rhi-audio\RhiAudioCapture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="rhi-utils\RhiCommon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="rhi-utils\libconfig.h++" />

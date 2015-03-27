@@ -1,3 +1,5 @@
+#ifndef __RHIUTIL_H__
+#define __RHIUTIL_H__
 
 #include <windows.h>
 #include <stdio.h>
@@ -43,3 +45,5 @@ bool SaveRGBPlanar(const char *fileName, BYTE *data, int width, int height);
 bool SaveARGB(const char *fileName, BYTE *data, int width, int height);
 
 bool SaveYUV(const char *fileName, BYTE *data, int width, int height);
+
+#endif
