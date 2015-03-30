@@ -27,7 +27,7 @@ int NVH264::Init()
 	Arguments.iProfile = 77;
 	Arguments.eRateControl = NVFBC_H264_ENC_PARAMS_RC_CBR;
 	Arguments.iFPS = 30;
-	Arguments.iGOPLength = 10*Arguments.iFPS;//Iframes every 10 seconds
+	Arguments.iGOPLength = 10*Arguments.iFPS;//I-frames every 10 seconds
 	Arguments.ePresetConfig = NVFBC_H264_PRESET_LOW_LATENCY_HP;
 
 	int ret = 0;
@@ -38,23 +38,19 @@ int NVH264::Init()
 	memset(&encodeConfig, 0, sizeof(encodeConfig));
 	memset(&fbch264SetupParams, 0, sizeof(fbch264SetupParams));
 
-
 	encodeConfig.dwVersion = NVFBC_H264HWENC_CONFIG_VER;
 
 	//Play with these
-
 	encodeConfig.dwProfile = Arguments.iProfile;// MAIN profile
 	encodeConfig.eRateControl = (NVFBC_H264_ENC_PARAMS_RC_MODE)Arguments.eRateControl;
 	encodeConfig.dwAvgBitRate = Arguments.iBitrate;
-	//encodeConfig.eRateControl = NVFBC_H264_ENC_PARAMS_RC_VBR; // Set the rate control
-	//encodeConfig.dwPeakBitRate = (NvU32)(args.iBitrate * 1.50); // Set the peak bitrate to 150% of the average
+	// encodeConfig.eRateControl = NVFBC_H264_ENC_PARAMS_RC_VBR; // Set the rate control
+	// encodeConfig.dwPeakBitRate = (NvU32)(args.iBitrate * 1.50); // Set the peak bitrate to 150% of the average
 
 	//encodeConfig.dwMaxNumRefFrames = 0;//For Nvidia Default
 
 	encodeConfig.dwFrameRateNum = Arguments.iFPS;
 	encodeConfig.dwFrameRateDen = 1; // Set the target frame rate at 30
-
-
 
 	encodeConfig.dwGOPLength = 100; // The I-Frame frequency
 
@@ -66,12 +62,9 @@ int NVH264::Init()
 	encodeConfig.bRecordTimeStamps = FALSE; // Don't record timestamps
 	encodeConfig.stereoFormat = NVFBC_H264_STEREO_NONE; // No stereo
 
-
 	fbch264SetupParams.dwVersion = NVFBC_H264_SETUP_PARAMS_VER;
 	fbch264SetupParams.bWithHWCursor = TRUE;
 	fbch264SetupParams.pEncodeConfig = &encodeConfig;
-
-
 
 	//! Load the NvFBC library.
 	if(!nvfbc->load())
@@ -92,7 +85,6 @@ int NVH264::Init()
 	//! Setup a buffer to put the encoded frame in
 	outputBuffer = (unsigned char *)malloc(4048 * 4048);
 
-
 	res = encoder->NvFBCH264SetUp(&fbch264SetupParams);
 
 	if (res != NVFBC_SUCCESS)
@@ -108,7 +100,6 @@ int NVH264::Init()
 
 int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetConfig)
 {
-
 	Cleanup();
 	NVFBCRESULT res = NVFBC_SUCCESS;
 
@@ -128,9 +119,7 @@ int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetC
 	memset(&encodeConfig, 0, sizeof(encodeConfig));
 	memset(&fbch264SetupParams, 0, sizeof(fbch264SetupParams));
 
-
 	encodeConfig.dwVersion = NVFBC_H264HWENC_CONFIG_VER;
-
 	encodeConfig.dwProfile = Arguments.iProfile;// MAIN profile
 	encodeConfig.dwFrameRateNum = Arguments.iFPS;
 	encodeConfig.dwFrameRateDen = 1; // Set the target frame rate at iFPS/1
@@ -160,17 +149,14 @@ int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetC
 		encodeConfig.dwFrameRateNum = Arguments.iFPS;
 		encodeConfig.dwFrameRateDen = 1; // Set the target frame rate at 30
 
-
 		encodeConfig.ePresetConfig = ( NVFBC_H264_PRESET )Arguments.ePresetConfig;
 		encodeConfig.dwQP = 26; // Quantization parameter, between 0 and 51 
 	}
-
 
 	encodeConfig.bOutBandSPSPPS = false; // Use inband SPSPPS, if you need to grab headers on demand use outband SPSPPS
 
 	encodeConfig.bRecordTimeStamps = FALSE; // Don't record timestamps
 	encodeConfig.stereoFormat = NVFBC_H264_STEREO_NONE; // No stereo
-
 
 	fbch264SetupParams.dwVersion = NVFBC_H264_SETUP_PARAMS_VER;
 	fbch264SetupParams.bWithHWCursor = TRUE;
@@ -194,7 +180,6 @@ int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetC
 	}
 	//! Setup a buffer to put the encoded frame in
 	outputBuffer = (unsigned char *)malloc(2048 * 2048);
-
 	res = encoder->NvFBCH264SetUp(&fbch264SetupParams);
 
 	if (res != NVFBC_SUCCESS)
@@ -208,7 +193,7 @@ int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetC
 	return ret;
 }
 
-NVH264::VideoFrame NVH264::GrabFrame()
+NVH264::VideoFrame NVH264::GrabFrameCompressed()
 {
 	static unsigned int frames = 0;
 
@@ -281,7 +266,6 @@ NVH264::VideoFrame NVH264::GrabFrame()
 			Cleanup();
 			return frame;
 		}
-
 		return frame;
 	}
 	else
@@ -302,8 +286,7 @@ NVH264::VideoFrame NVH264::GrabFrame()
 	}
 }
 
-
-
+// For capturing raw frames into memory; and software encoding
 int NVH264::ReInitToMemory(int bitrate,int profile,int eRateControl,int fps,int ePresetConfig,int width,int height,int threads)
 {
 	rawBuffer = NULL;
@@ -369,7 +352,7 @@ int NVH264::ReInitToMemory(int bitrate,int profile,int eRateControl,int fps,int 
 	return ret;
 }
 
-NVH264::VideoFrame NVH264::GrabFrameSoftware()
+NVH264::VideoFrame NVH264::GrabFrameRawToSys()
 {
 	VideoFrame frame;
 	frame.outputBuffer = NULL;
@@ -399,7 +382,6 @@ NVH264::VideoFrame NVH264::GrabFrameSoftware()
 
 	//int size = sEncoder->encodeFrame(rawBuffer,outputBuffer);
 
-
 	frame.outputBuffer = outputBuffer;
 	//frame.sizeBytes = size;
 	frame.sizeBytes = 0;
@@ -424,6 +406,8 @@ int NVH264::Cleanup()
 	return 0;
 }
 
+
+// Benchmarking code
 int NVH264::BenchMark(int numFrames,int fps )
 {
 	LARGE_INTEGER frequency;
@@ -519,9 +503,6 @@ int NVH264::BenchMark(int numFrames,int fps )
 				return ret;
 
 			}
-
-
-
 		}
 		else
 		{
@@ -546,7 +527,6 @@ int NVH264::BenchMark(int numFrames,int fps )
 	fclose(outputStats);
 	return ret;
 }
-
 
 int NVH264::BenchMarkSoftware(int numFrames,int fps )
 {
@@ -577,8 +557,6 @@ int NVH264::BenchMarkSoftware(int numFrames,int fps )
 	double frameTime = 0;
 	if (Arguments.iFPS > 0)//If we have a fps specfied great! Other wise we are going for a speed run.
 		frameTime = 1.0/Arguments.iFPS;
-
-
 
 	while(currentFrames < numFrames)
 	{	 

@@ -153,20 +153,19 @@ void LiveSourceWithx264::doGetNextFrame()
 
 void LiveSourceWithx264::deliverFrame()
 {
-
 	fDurationInMicroseconds = 15000;
 	nextFrame = nextFrame+fDurationInMicroseconds;
 
 	NVH264::VideoFrame currentFrame;
 
 	if (softwareMode)
-		currentFrame = encoder->GrabFrameSoftware();
+		currentFrame = encoder->GrabFrameRawToSys();
 	else if(raw)
 	{
 		currentFrame.sizeBytes=0;
 	}
 	else
-		currentFrame = encoder->GrabFrame();
+		currentFrame = encoder->GrabFrameCompressed();
 
 	fFrameSize = currentFrame.sizeBytes;
 	int trancate = 4;
@@ -180,14 +179,11 @@ void LiveSourceWithx264::deliverFrame()
 		{
 			fFrameSize = fFrameSize-NVH264::headerSize;
 		}
-
 	}
 	else
 	{
 		fFrameSize = currentFrame.sizeBytes;
 	}
-	
-
 	 //fwrite(currentFrame.outputBuffer, currentFrame.sizeBytes, 1, outputFile);
 	
 	//increaseTime(&fPresentationTime,fDurationInMicroseconds);

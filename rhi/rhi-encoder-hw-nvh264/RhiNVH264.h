@@ -1,7 +1,6 @@
 #ifndef __RHI_NvFBCH264_H__
 #define __RHI_NvFBCH264_H__
 
-
 #include <NvFBCLibrary.h>
 #include <nvFBCH264.h>
 #include <nvFBCToSys.h>
@@ -14,10 +13,8 @@
 #include "Rhix264Encoder.h"
 #include <Util.h>
 
-
 class NVH264
 {
-
 private:
 	NvFBCLibrary* nvfbc;
 	NvFBC_H264HWEncoder_Config encodeConfig;
@@ -30,7 +27,6 @@ public:
 	//static const char * getHeader();
 	NVH264();
 	~NVH264();
-	int BenchMarkSoftware(int,int);
 
 	typedef struct _AppArgument {
 	    int         iBitrate;  // Bitrate to use
@@ -53,17 +49,17 @@ public:
 	unsigned char *outputBuffer;
 	unsigned char *rawBuffer;
 	int Cleanup();
-   	int BenchMark(int numFrames,int fps); //numFrames, fps
-   	VideoFrame GrabFrame();
-   	VideoFrame GrabFrameSoftware();
+   	VideoFrame GrabFrameCompressed();
+   	VideoFrame GrabFrameRawToSys();
    	static unsigned char ppssps_data[1024];
-  	//static NVFBC_H264_GET_HEADER_PARAMS headerParams ={0};
    	static NvU32 headerSize;
    	bool firstFrame;
    	NvU32* sizeBytes;
    	AppArguments Arguments;
    	int ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetConfig);
    	int ReInitToMemory(int bitrate,int profile,int eRateControl,int fps,int ePresetConfig,int height,int width,int threads);
+	int BenchMark(int numFrames,int fps); //numFrames, fps
+	int BenchMarkSoftware(int,int);
    };
 
 #endif

@@ -11,6 +11,10 @@
 #define RHI_SERVER_DEFAULT_PORT 8554
 #define RHI_SERVER_DEFAULT_RTP_PAYLOAD_FORMAT 96
 
+// Default encoder configuration
+
+
+
 static const std::string RHI_SERVER_DEFAULT_STREAM_NAME = "testStream";
 
 #endif
