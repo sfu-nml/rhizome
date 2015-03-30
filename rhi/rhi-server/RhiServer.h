@@ -1,9 +1,9 @@
 /* Rhizome Server header file.
- *
- * Copyright (C) 2015 	 
- *
- * This code is part of Rhizome.	
- */
+*
+* Copyright (C) 2015 	 
+*
+* This code is part of Rhizome.	
+*/
 
 #ifndef __RHISERVER_H__
 #define __RHISERVER_H__
@@ -34,6 +34,8 @@ private:
 		unsigned char ttl;
 		unsigned estimatedSessionBandwidth;
 		unsigned serverPort;
+		unsigned int payloadFormat;
+		std::string streamName;
 	} rhi_config;
 public:
 	RhiServer();

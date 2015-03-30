@@ -1,4 +1,4 @@
-/* main -- entry code for Rhizome, starting the server
+/* main -- entry code for Rhizome
  *
  * Copyright (C) 2015 	 
  *

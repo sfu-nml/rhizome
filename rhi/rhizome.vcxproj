@@ -85,7 +85,6 @@
     <ClCompile Include="rhi-audio\RhiAudioCapture.cpp" />
     <ClCompile Include="rhi-encoder-hw-nvh264\RhiNVH264.cpp" />
     <ClCompile Include="rhi-encoder-sw-x264\Rhix264Encoder.cpp" />
-    <ClCompile Include="rhi-server-live555\RhiH264LiveServerMediaSession.cpp" />
     <ClCompile Include="rhi-server-live555\RhiLiveSourceWithx264.cpp" />
     <ClCompile Include="rhi-server\RhiServer.cpp" />
     <ClCompile Include="rhi-utils\RhiUtil.cpp" />
@@ -94,7 +93,6 @@
     <ClInclude Include="rhi-audio\RhiAudioCapture.h" />
     <ClInclude Include="rhi-encoder-hw-nvh264\RhiNVH264.h" />
     <ClInclude Include="rhi-encoder-sw-x264\Rhix264Encoder.h" />
-    <ClInclude Include="rhi-server-live555\RhiH264LiveServerMediaSession.h" />
     <ClInclude Include="rhi-server-live555\RhiLiveSourceWithx264.h" />
     <ClInclude Include="rhi-server\RhiServer.h" />
     <ClInclude Include="rhi-utils\RhiCommon.h" />
