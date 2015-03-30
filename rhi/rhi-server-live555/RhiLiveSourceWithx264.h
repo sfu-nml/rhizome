@@ -1,5 +1,5 @@
-#ifndef __RHISERVER_SOURCE_H__
-#define __RHISERVER_SOURCE_H__
+#ifndef __RHISERVER_LIVE_SOURCE_H__
+#define __RHISERVER_LIVE_SOURCE_H__
 
 #include <queue>
 #include <time.h>
@@ -32,9 +32,10 @@ private:
     void deliverFrame();
     static unsigned referenceCount;
 	bool firstFrame;
-    timeval currentTime;
 	unsigned int timeStamp;
+    timeval currentTime;
     NVH264 *encoder;
+
 	FILE *outputFile;
 	timeval fLastPlayTime;
 	unsigned __int64 nextFrame;
