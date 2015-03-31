@@ -2,6 +2,7 @@
 
 RhiServer::RhiServer(RhiInitManager* init_mgr) {
 	rhi_config = init_mgr->getServerConfig();
+	this->init_mgr = init_mgr;
 };
 
 RhiServer::~RhiServer() {};

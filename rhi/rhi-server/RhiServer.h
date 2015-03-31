@@ -1,12 +1,12 @@
-/* Rhizome Server header file.
-*
-* Copyright (C) 2015 	 
-*
-* This code is part of Rhizome.	
-*/
-
 #ifndef __RHISERVER_H__
 #define __RHISERVER_H__
+
+/* Rhizome Server header file.
+ *
+ * Copyright (C) 2015 	 
+ *
+ * This code is part of Rhizome.	
+ */
 
 #include "liveMedia.hh"
 #include "BasicUsageEnvironment.hh"
@@ -27,6 +27,7 @@ class RhiServer
 private:
 	UsageEnvironment* env;
 	rhiServerConfig rhi_config;
+	RhiInitManager* init_mgr;
 	RhiServer();
 public:
 	RhiServer(RhiInitManager*);

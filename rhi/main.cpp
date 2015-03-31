@@ -8,7 +8,7 @@
 
 int main(int argc, char** argv) {
 	RhiInitManager *mgr = new RhiInitManager();
-	mgr->readServerParam();
+	mgr->readParamAll();
 
 	RhiServer* rhi = new RhiServer(mgr);
 	rhi->startMediaServer();
