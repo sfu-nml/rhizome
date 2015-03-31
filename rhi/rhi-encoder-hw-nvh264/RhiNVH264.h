@@ -13,6 +13,8 @@
 #include "Rhix264Encoder.h"
 #include <Util.h>
 
+
+
 class NVH264
 {
 private:

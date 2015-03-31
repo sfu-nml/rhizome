@@ -7,8 +7,10 @@
 #include "RhiServer.h"
 
 int main(int argc, char** argv) {
-	RhiServer* rhi = new RhiServer();
-	rhi->serverInitialize();
+	RhiInitManager *mgr = new RhiInitManager();
+	mgr->readServerParam();
+
+	RhiServer* rhi = new RhiServer(mgr);
 	rhi->startMediaServer();
 	return 0;
 }

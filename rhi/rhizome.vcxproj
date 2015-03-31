@@ -69,7 +69,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\inc;..\inc\NvFBC;.\rhi-utils;.\rhi-audio;.\rhi-encoder-hw-nvh264;.\rhi-encoder-sw-x264;.\rhi-server-live555;.\rhi-server;.\rhi-core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\inc;..\inc\NvFBC;.\rhi-utils;.\rhi-audio;.\rhi-encoder-hw-nvh264;.\rhi-encoder-sw-x264;.\rhi-server-live555;.\rhi-server;.\rhi-core;.\rhi-init-manager;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,6 +85,7 @@
     <ClCompile Include="rhi-audio\RhiAudioCapture.cpp" />
     <ClCompile Include="rhi-encoder-hw-nvh264\RhiNVH264.cpp" />
     <ClCompile Include="rhi-encoder-sw-x264\Rhix264Encoder.cpp" />
+    <ClCompile Include="rhi-init-manager\RhiInitManager.cpp" />
     <ClCompile Include="rhi-server-live555\RhiLiveSourceWithx264.cpp" />
     <ClCompile Include="rhi-server\RhiServer.cpp" />
     <ClCompile Include="rhi-utils\RhiUtil.cpp" />
@@ -93,6 +94,7 @@
     <ClInclude Include="rhi-audio\RhiAudioCapture.h" />
     <ClInclude Include="rhi-encoder-hw-nvh264\RhiNVH264.h" />
     <ClInclude Include="rhi-encoder-sw-x264\Rhix264Encoder.h" />
+    <ClInclude Include="rhi-init-manager\RhiInitManager.h" />
     <ClInclude Include="rhi-server-live555\RhiLiveSourceWithx264.h" />
     <ClInclude Include="rhi-server\RhiServer.h" />
     <ClInclude Include="rhi-utils\RhiCommon.h" />

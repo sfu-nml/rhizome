@@ -36,6 +36,9 @@
     <ClCompile Include="rhi-server-live555\RhiLiveSourceWithx264.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rhi-init-manager\RhiInitManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rhi-server\RhiServer.h">
@@ -57,6 +60,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rhi-server-live555\RhiLiveSourceWithx264.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rhi-init-manager\RhiInitManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

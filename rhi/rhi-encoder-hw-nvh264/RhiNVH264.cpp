@@ -7,6 +7,9 @@
 
 #include "RhiNVH264.h"
 
+NvU32 NVH264::headerSize = 0;
+unsigned char NVH264::ppssps_data[1024];
+
 NVH264::NVH264()
 {
 	encoder=NULL;

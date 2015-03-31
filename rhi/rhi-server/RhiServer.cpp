@@ -1,10 +1,7 @@
 #include "RhiServer.h"
 
-NvU32 NVH264::headerSize = 0;
-unsigned char NVH264::ppssps_data[1024];
-
-RhiServer::RhiServer() {
-	initializeWithDefault();
+RhiServer::RhiServer(RhiInitManager* init_mgr) {
+	rhi_config = init_mgr->getServerConfig();
 };
 
 RhiServer::~RhiServer() {};
@@ -84,78 +81,6 @@ void RhiServer::startMediaServer() {
 	videoSink->startPlaying(*dSource, NULL, videoSink);
 	env->taskScheduler().doEventLoop(); // does not return
 };
-
-void RhiServer::serverInitialize() {
-	using namespace libconfig;
-	Config cfg;
-
-	// Reading rhizome configuration file
-	try {
-		cfg.readFile("rhi.cfg");
-	} catch(const libconfig::FileIOException &fioex) {
-		std::cerr << "Rhi-Error -> I/O error while reading Rhizome configuration file. " << std::endl;
-		initializeWithDefault();
-		std::cout<< "Rhi -> Initialized with default settings." << std::endl;
-		return;
-	} catch(const libconfig::ParseException &pex)
-	{
-		std::cerr << "Parse error at " << pex.getFile() << ":" << pex.getLine()
-		<< " - " << pex.getError() << std::endl;
-		initializeWithDefault();
-		std::cout<< "Rhi -> Initialized with default settings." << std::endl;
-		return;
-	}
-
-	Setting &root = cfg.getRoot();
-	
-	if(!root.exists("server")) {
-		initializeWithDefault();
-		std::cout<< "Rhi -> Initialized with default settings." << std::endl;
-		return;
-	} 
-
-	const Setting &live555 = root["server"]["live555"];
-	const Setting &live555_cfg = live555[0];
-
-	try {
-		int outPacketMaxSize, rtpPortNum, rtcpPortNum, ttl, 
-		payloadFormat, estimatedSessionBandwidth, serverPort;
-		std::string streamName;
-		
-		if(live555_cfg.lookupValue("outPacketMaxSize",outPacketMaxSize)) 
-			rhi_config.outPacketMaxSize = outPacketMaxSize;
-		if(live555_cfg.lookupValue("rtpPortNum",rtpPortNum)) 
-			rhi_config.rtpPortNum = rtpPortNum;
-		if(live555_cfg.lookupValue("rtcpPortNum",rtcpPortNum))
-			rhi_config.rtcpPortNum = rtcpPortNum;
-		if(live555_cfg.lookupValue("ttl",ttl))
-			rhi_config.ttl = ttl;
-		if(live555_cfg.lookupValue("estimatedSessionBandwidth",estimatedSessionBandwidth))
-			rhi_config.estimatedSessionBandwidth = estimatedSessionBandwidth;
-		if(live555_cfg.lookupValue("serverPort",serverPort))
-			rhi_config.serverPort = serverPort;
-		if(live555_cfg.lookupValue("payloadFormat",payloadFormat))
-			rhi_config.payloadFormat = payloadFormat;
-		if(live555_cfg.lookupValue("streamName",streamName))
-			rhi_config.streamName = streamName;
-	} catch (...) {
-		std::cout<<"Rhi-Error -> Error reading configuration file." <<std::endl;
-		initializeWithDefault(); // Rollback
-		std::cout<< "Rhi -> Initialized with default settings." << std::endl;
-		return;
-	}
-}
-
-void RhiServer::initializeWithDefault() {
-	rhi_config.outPacketMaxSize = RHI_SERVER_DEFAULT_OUT_PACKET_BUFFER_MAX_SIZE;
-	rhi_config.rtpPortNum = RHI_SERVER_DEFAULT_RTP_PORT;
-	rhi_config.rtcpPortNum = RHI_SERVER_DEFAULT_RTCP_PORT;
-	rhi_config.ttl = RHI_SERVER_DEFAULT_TTL;
-	rhi_config.estimatedSessionBandwidth = RHI_SERVER_DEFAULT_ESTIMATED_SESSION_BANDWIDTH;
-	rhi_config.serverPort = RHI_SERVER_DEFAULT_PORT;
-	rhi_config.payloadFormat = RHI_SERVER_DEFAULT_RTP_PAYLOAD_FORMAT;
-	rhi_config.streamName = RHI_SERVER_DEFAULT_STREAM_NAME;
-}
 
 
 

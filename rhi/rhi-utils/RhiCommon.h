@@ -1,6 +1,10 @@
 #ifndef __RHI_COMMON_H__
 #define __RHI_COMMON_H__
 
+#include <iostream>
+#include <iomanip>
+#include <cstdlib>
+
 // Default Server configuration
 #define RHI_SERVER_DEFAULT_OUT_PACKET_BUFFER_MAX_SIZE 500000
 #define RHI_SERVER_DEFAULT_RTP_PORT 20000
@@ -11,12 +15,23 @@
 #define RHI_SERVER_DEFAULT_PORT 8554
 #define RHI_SERVER_DEFAULT_RTP_PAYLOAD_FORMAT 96
 
-// Default software encoder configuration
-#define RHI_ENCODER_DEFAULT_OPTION 0
+struct rhiServerConfig {
+	unsigned int outPacketMaxSize;
+	unsigned short rtpPortNum;
+	unsigned short rtcpPortNum;
+	unsigned char ttl;
+	unsigned estimatedSessionBandwidth;
+	unsigned serverPort;
+	unsigned int payloadFormat;
+	std::string streamName;
+};
 
+// Default software encoder configuration
+#define RHI_ENCODER_DEFAULT_OPTION_SOFTWARE 0
+#define RHI_ENCODER_DEFAULT_OPTION RHI_ENCODER_DEFAULT_OPTION_SOFTWARE
 
 // Default hardware encoder configuration
-#define RHI_ENCODER_DEFAULT_OPTION 1
+#define RHI_ENCODER_DEFAULT_OPTION_HARDWARE 1
 #define RHI_ENCODER_DEFAULT_BITRATE 500000;
 #define RHI_ENCODER_DEFAULT_PROFILE 66 // BASELINE
 #define RHI_ENCODER_DEFAULT_RATECONTROL NVFBC_H264_ENC_PARAMS_RC_CBR

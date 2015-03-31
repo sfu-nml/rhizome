@@ -17,33 +17,22 @@
 #include "RhiLiveSourceWithx264.h"
 #include "libconfig.h++"
 
-#include <iostream>
-#include <iomanip>
-#include <cstdlib>
-
 #include "RhiCommon.h"
+#include "RhiInitManager.h"
+
+class RhiInitManager;
 
 class RhiServer
 {
 private:
 	UsageEnvironment* env;
-	struct config {
-		unsigned int outPacketMaxSize;
-		unsigned short rtpPortNum;
-		unsigned short rtcpPortNum;
-		unsigned char ttl;
-		unsigned estimatedSessionBandwidth;
-		unsigned serverPort;
-		unsigned int payloadFormat;
-		std::string streamName;
-	} rhi_config;
-public:
+	rhiServerConfig rhi_config;
 	RhiServer();
+public:
+	RhiServer(RhiInitManager*);
 	~RhiServer();
 
 	void startMediaServer();
-	void serverInitialize();
-	void initializeWithDefault();
 };
 
 #endif
