@@ -10,36 +10,34 @@
 #include <stdio.h> 
 #include <iostream>
 #include <sstream>
-#include "Rhix264Encoder.h"
 #include <Util.h>
+#include "Rhix264Encoder.h"
 #include "RhiCommon.h"
 
 class NVH264
 {
 private:
 	NvFBCLibrary* nvfbc;
-	NvFBC_H264HWEncoder_Config encodeConfig;
-	NVFBC_H264_SETUP_PARAMS fbch264SetupParams;
 	NvFBCToH264HWEncoder *encoder;
 	NvFBCToSys *sysFramer;
 	x264Encoder* sEncoder;
+	
+	NvFBC_H264HWEncoder_Config encodeConfig;
+	NVFBC_H264_SETUP_PARAMS fbch264SetupParams;
+	
 	int Init();
 public:
 	//static const char * getHeader();
 	NVH264();
 	~NVH264();
-
-	typedef struct _videoFrame {
-		unsigned int isIFrame;
-		unsigned int sizeBytes;
-		unsigned char *outputBuffer;
-	} VideoFrame;
+	int Cleanup();
 
 	unsigned char *outputBuffer;
 	unsigned char *rawBuffer;
-	int Cleanup();
+
    	VideoFrame GrabFrameCompressed();
    	VideoFrame GrabFrameRawToSys();
+   	
    	static unsigned char ppssps_data[1024];
    	static NvU32 headerSize;
    	bool firstFrame;

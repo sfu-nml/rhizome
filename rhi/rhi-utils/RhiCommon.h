@@ -58,6 +58,12 @@ typedef struct _rhiEncoderConfig {
 	int			threads;
 } rhiEncoderConfig;
 
+typedef struct _videoFrame {
+		unsigned int isIFrame;
+		unsigned int sizeBytes;
+		unsigned char *outputBuffer;
+} VideoFrame;
+
 static const std::string RHI_SERVER_DEFAULT_STREAM_NAME = "testStream";
 
 #endif

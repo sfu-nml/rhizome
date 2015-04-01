@@ -39,6 +39,9 @@ public:
 	void readEncoderParam();
 	void readEncoderParamDefault();
 	rhiEncoderConfig getEncoderConfig();
+
+	// Unit test
+	void rhiInitMgrTest();
 };
 
 

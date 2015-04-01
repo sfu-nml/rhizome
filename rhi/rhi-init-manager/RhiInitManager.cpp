@@ -130,6 +130,8 @@ void RhiInitManager::readEncoderParamDefault() {
 	encoderConfig.iGOPLength = RHI_ENCODER_DEFAULT_GOPLENGTH;  // The I-Frame frequency
 	encoderConfig.iFPS = RHI_ENCODER_DEFAULT_FRAMERATE;
 	encoderConfig.ePresetConfig = RHI_ENCODER_DEFAULT_PRESETCONFIG; //NVFBC_H264_PRESET_LOW_LATENCY_HP, NVFBC_H264_PRESET_LOW_LATENCY_HQ, ETC
+	  
+
 	//encoderConfig.height;
 	//encoderConfig.width;
 	//encoderConfig.threads;
