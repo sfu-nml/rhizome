@@ -22,6 +22,20 @@
 #define RHI_SERVER_DEFAULT_PORT 8554
 #define RHI_SERVER_DEFAULT_RTP_PAYLOAD_FORMAT 96
 
+// Default software encoder x264 configuration
+#define RHI_ENCODER_DEFAULT_OPTION_SOFTWARE 0
+#define RHI_ENCODER_DEFAULT_OPTION RHI_ENCODER_DEFAULT_OPTION_SOFTWARE
+
+// Default hardware encoder NVH264 configuration
+#define RHI_ENCODER_DEFAULT_OPTION_HARDWARE 1
+#define RHI_ENCODER_DEFAULT_BITRATE 500000;
+#define RHI_ENCODER_DEFAULT_PROFILE 66 									  // BASELINE
+#define RHI_ENCODER_DEFAULT_RATECONTROL NVFBC_H264_ENC_PARAMS_RC_CBR
+#define RHI_ENCODER_DEFAULT_FRAMERATE 30
+#define RHI_ENCODER_DEFAULT_GOPLENGTH RHI_ENCODER_DEFAULT_FRAMERATE * 10
+#define RHI_ENCODER_DEFAULT_PRESETCONFIG NVFBC_H264_PRESET_LOW_LATENCY_HP // Low latency with high performance
+
+// Server configuration structures
 typedef struct _rhiServerConfig {
 	unsigned int outPacketMaxSize;
 	unsigned short rtpPortNum;
@@ -33,37 +47,63 @@ typedef struct _rhiServerConfig {
 	std::string streamName;
 } rhiServerConfig;
 
-// Default software encoder configuration
-#define RHI_ENCODER_DEFAULT_OPTION_SOFTWARE 0
-#define RHI_ENCODER_DEFAULT_OPTION RHI_ENCODER_DEFAULT_OPTION_SOFTWARE
+static const std::string RHI_SERVER_DEFAULT_STREAM_NAME = "testStream";
 
-// Default hardware encoder configuration
-#define RHI_ENCODER_DEFAULT_OPTION_HARDWARE 1
-#define RHI_ENCODER_DEFAULT_BITRATE 500000;
-#define RHI_ENCODER_DEFAULT_PROFILE 66 // BASELINE
-#define RHI_ENCODER_DEFAULT_RATECONTROL NVFBC_H264_ENC_PARAMS_RC_CBR
-#define RHI_ENCODER_DEFAULT_FRAMERATE 30
-#define RHI_ENCODER_DEFAULT_GOPLENGTH RHI_ENCODER_DEFAULT_FRAMERATE * 10
-#define RHI_ENCODER_DEFAULT_PRESETCONFIG NVFBC_H264_PRESET_LOW_LATENCY_HP // Low latency with high performance
+// Hardware encoder NVH264 configuration structures
+typedef struct _rhiEncoderArgNV {
+	// 			Encoder config
+	int 		rhiConfigVersion;
+	int 		rhiProfile;
+	int 		rhiFrameRateNum;
+	int 		rhiFrameRateDen;
+	int 		rhiAvgBitRate;
+	int 		rhiPeakBitRate;
+	int 		rhiGopLength;
+	int 		rhiQP;
+	int 		rhiRateControl;
+	int  		rhiPresetConfig;
+	int 		rhiOutBandSPSPPS;
+	int 		rhiNumBFrames;
+	int  		rhiRecordTimeStamps;
+	int  		rhiIntraFrameOnRequest;
+	int  		rhiUseMaxRCQP;
+	int 		rhiEnableSubframeEncoding; 		// Reserved. Should be 0.
+	int   		rhiEnableConstrainedEncoding;   // Reserved. Should be 0.
+	int  		rhiEnableIntraRefresh;
+	int  		rhiVBVBufferSize;
+	int   		rhiVBVInitialDelay;
+	int 		rhiMaxRCQP[3];
+	int 		rhiMaxNumRefFrames;
+	int 		rhiStereoFormat;
+	int  		rhiSlicingMode;
+	int 		rhiSlicingModeParam;
+	// 			Other setup parameters
+	int 		rhiSetupVersion;
+	int 		rhiWithHWCursor;
+	// 			Frame grab parameters
+	int 		rhiFrameGrabVersion;
+	int  		rhiFrameGrabFlags;				// Control flags to the call
+	int  		rhiGMode;
+} rhiEncoderArgNV;
 
-typedef struct _rhiEncoderConfig {
-	int         iBitrate;  // Bitrate to use
-	int         iProfile;  // H.264 encoding profile; BASELINE (66), MAIN (77) and HIGH (100)
-	int			eRateControl; // CBR, VBR, etc
-	int			iGOPLength;  // The I-Frame frequency
+typedef struct _rhiEncoderConfigNV {
+	int         iBitrate;  						// Bitrate to use
+	int         iProfile;  						// H.264 encoding profile; BASELINE (66), MAIN (77) and HIGH (100)
+	int			eRateControl; 					// CBR, VBR, etc
+	int			iGOPLength;  					// The I-Frame frequency
 	int			iFPS;
-	int			ePresetConfig; //NVFBC_H264_PRESET_LOW_LATENCY_HP, NVFBC_H264_PRESET_LOW_LATENCY_HQ, ETC
+	int			ePresetConfig; 					//NVFBC_H264_PRESET_LOW_LATENCY_HP, NVFBC_H264_PRESET_LOW_LATENCY_HQ, ETC
 	int			height;
 	int			width;
 	int			threads;
-} rhiEncoderConfig;
+} rhiEncoderConfigNV;
 
-typedef struct _videoFrame {
+typedef struct _videoFrameNV {
 		unsigned int isIFrame;
 		unsigned int sizeBytes;
 		unsigned char *outputBuffer;
-} VideoFrame;
+} VideoFrameNV;
 
-static const std::string RHI_SERVER_DEFAULT_STREAM_NAME = "testStream";
+
 
 #endif

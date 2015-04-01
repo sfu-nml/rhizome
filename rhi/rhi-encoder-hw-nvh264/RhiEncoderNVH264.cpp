@@ -5,7 +5,7 @@
  * This code is part of Rhizome.	
  */
 
-#include "RhiNVH264.h"
+#include "RhiEncoderNVH264.h"
 
 NvU32 NVH264::headerSize = 0;
 unsigned char NVH264::ppssps_data[1024];
@@ -196,7 +196,7 @@ int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetC
 	return ret;
 }
 
-NVH264::VideoFrame NVH264::GrabFrameCompressed()
+VideoFrameNV NVH264::GrabFrameCompressed()
 {
 	static unsigned int frames = 0;
 
@@ -206,7 +206,7 @@ NVH264::VideoFrame NVH264::GrabFrameCompressed()
 	NvFBC_H264HWEncoder_EncodeParams fbch264EncodeFrameParams = {0};
 	DWORD maxWidth = -1, maxHeight = -1;
 	//DWORD maxWidth = 1280, maxHeight = 720;
-	VideoFrame frame;
+	VideoFrameNV frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 	frame.isIFrame = 0;
@@ -355,9 +355,9 @@ int NVH264::ReInitToMemory(int bitrate,int profile,int eRateControl,int fps,int 
 	return ret;
 }
 
-NVH264::VideoFrame NVH264::GrabFrameRawToSys()
+VideoFrameNV NVH264::GrabFrameRawToSys()
 {
-	VideoFrame frame;
+	VideoFrameNV frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 
@@ -424,7 +424,7 @@ int NVH264::BenchMark(int numFrames,int fps )
 	NVFBC_H264_GRAB_FRAME_PARAMS fbch264GrabFrameParams = {0};
 	NvFBC_H264HWEncoder_FrameInfo frameInfo = {0};
 	DWORD maxWidth = -1, maxHeight = -1;
-	VideoFrame frame;
+	VideoFrameNV frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 	double timer;
@@ -542,7 +542,7 @@ int NVH264::BenchMarkSoftware(int numFrames,int fps )
 	FILE *outputH264;
 	FILE *outputStats;
 
-	VideoFrame frame;
+	VideoFrameNV frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 

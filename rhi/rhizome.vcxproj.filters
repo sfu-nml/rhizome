@@ -21,13 +21,7 @@
     <ClCompile Include="rhi-server\RhiServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rhi-encoder-hw-nvh264\RhiNVH264.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="rhi-utils\RhiUtil.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="rhi-encoder-sw-x264\Rhix264Encoder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="rhi-audio\RhiAudioCapture.cpp">
@@ -39,18 +33,18 @@
     <ClCompile Include="rhi-init-manager\RhiInitManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rhi-encoder-hw-nvh264\RhiEncoderNVH264.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="rhi-encoder-sw-x264\RhiEncoderx264.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rhi-server\RhiServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="rhi-encoder-hw-nvh264\RhiNVH264.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="rhi-utils\RhiUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="rhi-encoder-sw-x264\Rhix264Encoder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rhi-audio\RhiAudioCapture.h">
@@ -63,6 +57,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="rhi-init-manager\RhiInitManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rhi-encoder-hw-nvh264\RhiEncoderNVH264.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rhi-encoder-sw-x264\RhiEncoderx264.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

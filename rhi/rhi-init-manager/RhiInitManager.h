@@ -13,15 +13,15 @@
 
 #include "RhiCommon.h"
 #include "RhiServer.h"
-#include "Rhix264Encoder.h"
-#include "RhiNVH264.h"
+#include "RhiEncoderx264.h"
+#include "RhiEncoderNVH264.h"
 #include "libconfig.h++"
 
 class RhiInitManager {
 private:
 	int encoderType;
 	rhiServerConfig serverConfig;
-	rhiEncoderConfig encoderConfig;
+	rhiEncoderConfigNV encoderConfig;
 	libconfig::Config cfg;
 public:
 	RhiInitManager();
@@ -38,7 +38,7 @@ public:
 	// Encoder parameters reading utilities
 	void readEncoderParam();
 	void readEncoderParamDefault();
-	rhiEncoderConfig getEncoderConfig();
+	rhiEncoderConfigNV getEncoderConfig();
 
 	// Unit test
 	void rhiInitMgrTest();

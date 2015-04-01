@@ -1,4 +1,4 @@
-#include "Rhix264Encoder.h"
+#include "RhiEncoderx264.h"
 
 
 x264Encoder::x264Encoder(void)
@@ -26,7 +26,7 @@ void x264Encoder::initilize(int bitrate,int profile,int eRateControl,int fps,int
     parameters.i_keyint_max = parameters.i_fps_num;
     parameters.b_intra_refresh = 1;
     parameters.rc.i_rc_method = X264_RC_CRF;
-	  parameters.rc.i_bitrate=bitrate;
+	parameters.rc.i_bitrate=bitrate;
     parameters.rc.i_vbv_buffer_size = 1.50*bitrate;
     parameters.rc.i_vbv_max_bitrate = 1.50*bitrate;
     parameters.rc.f_rf_constant = 25;

@@ -113,9 +113,6 @@ unsigned __int64 getMicroTime()
 
 // Finally change microseconds to seconds and place in the seconds value. 
 // The modulus picks up the microseconds.
-
-
-
 	return tmpres;
 } 
 
@@ -138,7 +135,6 @@ int increaseTime(struct timeval *tv,unsigned int interval)
 
 void LiveSourceWithx264::doGetNextFrame()
 {
-	
 	if(firstFrame) 
 	{
 		gettimeofday(&fPresentationTime,NULL);
@@ -150,13 +146,12 @@ void LiveSourceWithx264::doGetNextFrame()
 	deliverFrame();
 }
 
-
 void LiveSourceWithx264::deliverFrame()
 {
 	fDurationInMicroseconds = 15000;
 	nextFrame = nextFrame+fDurationInMicroseconds;
 
-	NVH264::VideoFrame currentFrame;
+	VideoFrameNV currentFrame;
 
 	if (softwareMode)
 		currentFrame = encoder->GrabFrameRawToSys();

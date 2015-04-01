@@ -138,6 +138,6 @@ void RhiInitManager::readEncoderParamDefault() {
 	std::cout<< "Rhi -> Encoder initialized with default settings." << std::endl;
 };
 
-rhiEncoderConfig RhiInitManager::getEncoderConfig() {
+rhiEncoderConfigNV RhiInitManager::getEncoderConfig() {
 	return this->encoderConfig;
 };

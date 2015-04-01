@@ -11,7 +11,7 @@
 #include <iostream>
 #include <sstream>
 #include <Util.h>
-#include "Rhix264Encoder.h"
+#include "RhiEncoderx264.h"
 #include "RhiCommon.h"
 
 class NVH264
@@ -35,14 +35,14 @@ public:
 	unsigned char *outputBuffer;
 	unsigned char *rawBuffer;
 
-   	VideoFrame GrabFrameCompressed();
-   	VideoFrame GrabFrameRawToSys();
+   	VideoFrameNV GrabFrameCompressed();
+   	VideoFrameNV GrabFrameRawToSys();
    	
    	static unsigned char ppssps_data[1024];
    	static NvU32 headerSize;
    	bool firstFrame;
    	NvU32* sizeBytes;
-   	rhiEncoderConfig Arguments;
+   	rhiEncoderConfigNV Arguments;
    	int ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetConfig);
    	int ReInitToMemory(int bitrate,int profile,int eRateControl,int fps,int ePresetConfig,int height,int width,int threads);
 	int BenchMark(int numFrames,int fps); //numFrames, fps
