@@ -29,7 +29,7 @@ int NVH264::Init()
 	Arguments.iBitrate = 500000;
 	Arguments.iProfile = 77;
 	Arguments.eRateControl = NVFBC_H264_ENC_PARAMS_RC_CBR;
-	Arguments.iFPS = 30;
+	Arguments.iFPS = 60000;
 	Arguments.iGOPLength = 10*Arguments.iFPS;//I-frames every 10 seconds
 	Arguments.ePresetConfig = NVFBC_H264_PRESET_LOW_LATENCY_HP;
 
@@ -60,7 +60,7 @@ int NVH264::Init()
 	encodeConfig.ePresetConfig = ( NVFBC_H264_PRESET )Arguments.ePresetConfig;
 	encodeConfig.dwQP = 26; // Quantization parameter, between 0 and 51 
 
-	encodeConfig.bOutBandSPSPPS = false; // Use inband SPSPPS, if you need to grab headers on demand use outband SPSPPS
+	encodeConfig.bOutBandSPSPPS = TRUE; // Use inband SPSPPS, if you need to grab headers on demand use outband SPSPPS
 
 	encodeConfig.bRecordTimeStamps = FALSE; // Don't record timestamps
 	encodeConfig.stereoFormat = NVFBC_H264_STEREO_NONE; // No stereo
@@ -156,7 +156,7 @@ int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetC
 		encodeConfig.dwQP = 26; // Quantization parameter, between 0 and 51 
 	}
 
-	encodeConfig.bOutBandSPSPPS = false; // Use inband SPSPPS, if you need to grab headers on demand use outband SPSPPS
+	encodeConfig.bOutBandSPSPPS = TRUE; // Use inband SPSPPS, if you need to grab headers on demand use outband SPSPPS
 
 	encodeConfig.bRecordTimeStamps = FALSE; // Don't record timestamps
 	encodeConfig.stereoFormat = NVFBC_H264_STEREO_NONE; // No stereo
@@ -196,7 +196,7 @@ int NVH264::ReInit(int bitrate,int profile,int eRateControl,int fps,int ePresetC
 	return ret;
 }
 
-VideoFrameNV NVH264::GrabFrameCompressed()
+VideoFrame NVH264::GrabFrameCompressed()
 {
 	static unsigned int frames = 0;
 
@@ -206,7 +206,7 @@ VideoFrameNV NVH264::GrabFrameCompressed()
 	NvFBC_H264HWEncoder_EncodeParams fbch264EncodeFrameParams = {0};
 	DWORD maxWidth = -1, maxHeight = -1;
 	//DWORD maxWidth = 1280, maxHeight = 720;
-	VideoFrameNV frame;
+	VideoFrame frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 	frame.isIFrame = 0;
@@ -355,9 +355,9 @@ int NVH264::ReInitToMemory(int bitrate,int profile,int eRateControl,int fps,int 
 	return ret;
 }
 
-VideoFrameNV NVH264::GrabFrameRawToSys()
+VideoFrame NVH264::GrabFrameRawToSys()
 {
-	VideoFrameNV frame;
+	VideoFrame frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 
@@ -424,7 +424,7 @@ int NVH264::BenchMark(int numFrames,int fps )
 	NVFBC_H264_GRAB_FRAME_PARAMS fbch264GrabFrameParams = {0};
 	NvFBC_H264HWEncoder_FrameInfo frameInfo = {0};
 	DWORD maxWidth = -1, maxHeight = -1;
-	VideoFrameNV frame;
+	VideoFrame frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 	double timer;
@@ -542,7 +542,7 @@ int NVH264::BenchMarkSoftware(int numFrames,int fps )
 	FILE *outputH264;
 	FILE *outputStats;
 
-	VideoFrameNV frame;
+	VideoFrame frame;
 	frame.outputBuffer = NULL;
 	frame.sizeBytes = 0;
 

@@ -22,7 +22,7 @@ LiveSourceWithx264::LiveSourceWithx264(UsageEnvironment& env):FramedSource(env)
 		if (softwareMode || raw)
 		encoder->ReInitToMemory(4000000,77,2,60,0,1280,720,8);//8 mbits, main profile, cbr,fps fps,high performance preset
 	else
-		encoder->ReInit(2000000,77,2,30,0);
+		encoder->ReInit(2000000,77,2,70,0);
 
 }
 ++referenceCount;
@@ -148,10 +148,10 @@ void LiveSourceWithx264::doGetNextFrame()
 
 void LiveSourceWithx264::deliverFrame()
 {
-	fDurationInMicroseconds = 15000;
+	fDurationInMicroseconds = 33333;
 	nextFrame = nextFrame+fDurationInMicroseconds;
 
-	VideoFrameNV currentFrame;
+	VideoFrame currentFrame;
 
 	if (softwareMode)
 		currentFrame = encoder->GrabFrameRawToSys();

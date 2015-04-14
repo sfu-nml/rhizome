@@ -23,28 +23,49 @@
 #define RHI_SERVER_DEFAULT_RTP_PAYLOAD_FORMAT 96
 
 // Default software encoder x264 configuration
-#define RHI_ENCODER_DEFAULT_OPTION_SOFTWARE 0
-#define RHI_ENCODER_DEFAULT_OPTION RHI_ENCODER_DEFAULT_OPTION_SOFTWARE
+#define RHI_ENCODER_X264_DEFAULT_OPTION_SOFTWARE 0
 
 // Default hardware encoder NVH264 configuration
-#define RHI_ENCODER_DEFAULT_OPTION_HARDWARE 1
-#define RHI_ENCODER_DEFAULT_BITRATE 500000;
-#define RHI_ENCODER_DEFAULT_PROFILE 66 									  // BASELINE
-#define RHI_ENCODER_DEFAULT_RATECONTROL NVFBC_H264_ENC_PARAMS_RC_CBR
-#define RHI_ENCODER_DEFAULT_FRAMERATE 30
-#define RHI_ENCODER_DEFAULT_GOPLENGTH RHI_ENCODER_DEFAULT_FRAMERATE * 10
-#define RHI_ENCODER_DEFAULT_PRESETCONFIG NVFBC_H264_PRESET_LOW_LATENCY_HP // Low latency with high performance
+#define RHI_ENCODER_NV264_DEFAULT_OPTION_HARDWARE 1
+#define RHI_ENCODER_NV264_DEFAULT_CONFIG_VERSION NVFBC_H264HWENC_CONFIG_VER
+#define RHI_ENCODER_NV264_DEFAULT_PROFILE 77 									// Main Profile
+#define RHI_ENCODER_NV264_DEFAULT_FRAMERATE 30
+#define RHI_ENCODER_NV264_DEFAULT_FRAMERATE_DENSITY 1
+#define RHI_ENCODER_NV264_DEFAULT_AVG_BITRATE 500000
+#define RHI_ENCODER_NV264_DEFAULT_PEAK_BITRATE RHI_ENCODER_NV264_DEFAULT_AVG_BITRATE * 1.5
+#define RHI_ENCODER_NV264_DEFAULT_GOPLENGTH RHI_ENCODER_NV264_DEFAULT_FRAMERATE * 10
+#define RHI_ENCODER_NV264_DEFAULT_QP 26
+#define RHI_ENCODER_NV264_DEFAULT_RATECONTROL NVFBC_H264_ENC_PARAMS_RC_CBR
+#define RHI_ENCODER_NV264_DEFAULT_PRESETCONFIG NVFBC_H264_PRESET_LOW_LATENCY_HP // Low latency with high performance
+#define RHI_ENCODER_NV264_DEFAULT_OUTBAND_SPSPPS FALSE
+#define RHI_ENCODER_NV264_DEFAULT_NUM_B_FRAMES 0
+#define RHI_ENCODER_NV264_DEFAULT_RECORD_TIMESTAMPS 0							// Do not record timestamps
+#define RHI_ENCODER_NV264_DEFAULT_INTRA_FRAME_ON_REQUEST TRUE
+#define RHI_ENCODER_NV264_DEFAULT_USE_MAX_RCQP FALSE
+#define RHI_ENCODER_NV264_DEFAULT_ENABLE_SUBFRAME_ENCODING 0					// Reserved;
+#define RHI_ENCODER_NV264_DEFAULT_ENABLE_CONSTRAINED_ENCODING 0					// Reserved;
+#define RHI_ENCODER_NV264_DEFAULT_ENABLE_INTRA_REFRESH 1
+#define RHI_ENCODER_NV264_DEFAULT_VBV_BUFFER_SIZE RHI_ENCODER_NV264_DEFAULT_PEAK_BITRATE/RHI_ENCODER_NV264_DEFAULT_FRAMERATE
+#define RHI_ENCODER_NV264_DEFAULT_VBV_INITIAL_DELAY RHI_ENCODER_NV264_DEFAULT_VBV_BUFFER_SIZE
+#define RHI_ENCODER_NV264_DEFAULT_MAX_RCQP_0 0
+#define RHI_ENCODER_NV264_DEFAULT_MAX_RCQP_1 0
+#define RHI_ENCODER_NV264_DEFAULT_MAX_RCQP_2 0
+#define RHI_ENCODER_NV264_DEFAULT_NUM_REF_FRAMES 0
+#define RHI_ENCODER_NV264_DEFAULT_STEREO_FORMAT 0
+#define RHI_ENCODER_NV264_DEFAULT_SLICING_MODE 0
+#define RHI_ENCODER_NV264_DEFAULT_SLICING_MODE_PARAM 0
+#define RHI_ENCODER_NV264_DEFAULT_SETUP_VERSION 0
 
 // Server configuration structures
 typedef struct _rhiServerConfig {
-	unsigned int outPacketMaxSize;
-	unsigned short rtpPortNum;
-	unsigned short rtcpPortNum;
-	unsigned char ttl;
-	unsigned estimatedSessionBandwidth;
-	unsigned serverPort;
-	unsigned int payloadFormat;
-	std::string streamName;
+ 	unsigned int outPacketMaxSize;
+ 	unsigned short rtpPortNum;
+ 	unsigned short rtcpPortNum;
+ 	unsigned char ttl;
+ 	unsigned estimatedSessionBandwidth;
+ 	unsigned serverPort;
+ 	unsigned int payloadFormat;
+ 	std::string streamName;
 } rhiServerConfig;
 
 static const std::string RHI_SERVER_DEFAULT_STREAM_NAME = "testStream";
@@ -52,21 +73,21 @@ static const std::string RHI_SERVER_DEFAULT_STREAM_NAME = "testStream";
 // Hardware encoder NVH264 configuration structures
 typedef struct _rhiEncoderArgNV {
 	// 			Encoder config
-	int 		rhiConfigVersion;
-	int 		rhiProfile;
-	int 		rhiFrameRateNum;
-	int 		rhiFrameRateDen;
-	int 		rhiAvgBitRate;
-	int 		rhiPeakBitRate;
-	int 		rhiGopLength;
-	int 		rhiQP;
-	int 		rhiRateControl;
-	int  		rhiPresetConfig;
-	int 		rhiOutBandSPSPPS;
-	int 		rhiNumBFrames;
-	int  		rhiRecordTimeStamps;
-	int  		rhiIntraFrameOnRequest;
-	int  		rhiUseMaxRCQP;
+ 	int 		rhiConfigVersion;
+ 	int 		rhiProfile;
+ 	int 		rhiFrameRateNum;
+ 	int 		rhiFrameRateDen;
+ 	int 		rhiAvgBitRate;
+ 	int 		rhiPeakBitRate;
+ 	int 		rhiGopLength;
+ 	int 		rhiQP;
+ 	int 		rhiRateControl;
+ 	int  		rhiPresetConfig;
+ 	int 		rhiOutBandSPSPPS;
+ 	int 		rhiNumBFrames;
+ 	int  		rhiRecordTimeStamps;
+ 	int  		rhiIntraFrameOnRequest;
+ 	int  		rhiUseMaxRCQP;
 	int 		rhiEnableSubframeEncoding; 		// Reserved. Should be 0.
 	int   		rhiEnableConstrainedEncoding;   // Reserved. Should be 0.
 	int  		rhiEnableIntraRefresh;
@@ -98,12 +119,10 @@ typedef struct _rhiEncoderConfigNV {
 	int			threads;
 } rhiEncoderConfigNV;
 
-typedef struct _videoFrameNV {
-		unsigned int isIFrame;
-		unsigned int sizeBytes;
-		unsigned char *outputBuffer;
-} VideoFrameNV;
-
-
+typedef struct _videoFrame {
+	unsigned int isIFrame;
+	unsigned int sizeBytes;
+	unsigned char *outputBuffer;
+} VideoFrame;
 
 #endif

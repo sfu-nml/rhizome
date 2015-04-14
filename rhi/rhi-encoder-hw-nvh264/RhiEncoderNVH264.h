@@ -35,8 +35,8 @@ public:
 	unsigned char *outputBuffer;
 	unsigned char *rawBuffer;
 
-   	VideoFrameNV GrabFrameCompressed();
-   	VideoFrameNV GrabFrameRawToSys();
+   	VideoFrame GrabFrameCompressed();
+   	VideoFrame GrabFrameRawToSys();
    	
    	static unsigned char ppssps_data[1024];
    	static NvU32 headerSize;

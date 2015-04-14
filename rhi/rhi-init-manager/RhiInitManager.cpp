@@ -16,7 +16,7 @@ void RhiInitManager::readParamAll() {
 
 bool RhiInitManager::readConfigFile() {
 	using namespace libconfig;
-	// Reading rhizome configuration file
+	// Read rhizome configuration file
 	try {
 		cfg.readFile("rhi.cfg");
 	} catch(const libconfig::FileIOException &fioex) {
@@ -102,20 +102,39 @@ void RhiInitManager::readEncoderParam() {
 	const Setting &nvh264_cfg = nvh264[0];
 
 	try {
-		int iBitrate, iProfile, eRateControl, iGOPLength, iFPS, ePresetConfig;
-
+		int rhiConfigVersion,
+	 		rhiProfile,
+	 		rhiFrameRateNum,
+	 		rhiFrameRateDen,
+	 		rhiAvgBitRate,
+	 		rhiPeakBitRate,
+	 		rhiGopLength,
+	 		rhiQP,
+	 		rhiRateControl,
+	  		rhiPresetConfig,
+	 		rhiOutBandSPSPPS,
+	 		rhiNumBFrames,
+	  		rhiRecordTimeStamps,
+	  		rhiIntraFrameOnRequest,
+	  		rhiUseMaxRCQP,
+	 		rhiEnableSubframeEncoding, 		// Reserved. Should be 0.
+	   		rhiEnableConstrainedEncoding,   // Reserved. Should be 0.
+	  		rhiEnableIntraRefresh,
+	  		rhiVBVBufferSize,
+	   		rhiVBVInitialDelay,
+	 		rhiMaxRCQP[3],
+	 		rhiMaxNumRefFrames,
+	 		rhiStereoFormat,
+	  		rhiSlicingMode,
+	 		rhiSlicingModeParam;
+	 		// rhiSetupVersion,
+	 		// rhiWithHWCursor,
+	 		// rhiFrameGrabVersion,
+	  		// rhiFrameGrabFlags,				
+	  		// rhiGMode;
 		//if(nvh264_cfg.lookupValue("iBitrate", iBitrate)) 
 		//	encoderConfig.iBitrate = iBitrate;
-		//if(nvh264_cfg.lookupValue("iProfile", iProfile)) 
-		//	encoderConfig.iProfile = iProfile;
-		//if(nvh264_cfg.lookupValue("eRateControl", eRateControl)) 
-		//	encoderConfig.eRateControl = eRateControl;
-		//if(nvh264_cfg.lookupValue("iGOPLength", iGOPLength)) 
-		//	encoderConfig.iGOPLength = iGOPLength;
-		//if(nvh264_cfg.lookupValue("iFPS", iFPS)) 
-		//	encoderConfig.iFPS = iFPS;
-		//if(nvh264_cfg.lookupValue("ePresetConfig", ePresetConfig)) 
-		//	encoderConfig.ePresetConfig = ePresetConfigS;
+			
 	} catch (...) {
 		std::cout<<"Rhi-Error -> Error reading encoder configuration file." <<std::endl;
 		readEncoderParamDefault(); // Rollback
@@ -124,20 +143,36 @@ void RhiInitManager::readEncoderParam() {
 };
 
 void RhiInitManager::readEncoderParamDefault() {
-	encoderConfig.iBitrate = RHI_ENCODER_DEFAULT_BITRATE;  // Bitrate to use
-	encoderConfig.iProfile = RHI_ENCODER_DEFAULT_PROFILE;  // H.264 encoding profile; BASELINE (66), MAIN (77) and HIGH (100)
-	encoderConfig.eRateControl = RHI_ENCODER_DEFAULT_RATECONTROL; // CBR, VBR, etc
-	encoderConfig.iGOPLength = RHI_ENCODER_DEFAULT_GOPLENGTH;  // The I-Frame frequency
-	encoderConfig.iFPS = RHI_ENCODER_DEFAULT_FRAMERATE;
-	encoderConfig.ePresetConfig = RHI_ENCODER_DEFAULT_PRESETCONFIG; //NVFBC_H264_PRESET_LOW_LATENCY_HP, NVFBC_H264_PRESET_LOW_LATENCY_HQ, ETC
-	  
+	encoderConfig.rhiProfile = RHI_ENCODER_NV264_DEFAULT_PROFILE;
+	encoderConfig.rhiFrameRateNum = RHI_ENCODER_NV264_DEFAULT_FRAMERATE;
+	encoderConfig.rhiFrameRateDen = RHI_ENCODER_NV264_DEFAULT_FRAMERATE_DENSITY;
+	encoderConfig.rhiAvgBitRate = RHI_ENCODER_NV264_DEFAULT_AVG_BITRATE;
+	encoderConfig.rhiPeakBitRate = RHI_ENCODER_NV264_DEFAULT_PEAK_BITRATE;
+	encoderConfig.rhiGopLength = RHI_ENCODER_NV264_DEFAULT_GOPLENGTH;
+	encoderConfig.rhiQP = RHI_ENCODER_NV264_DEFAULT_QP;
+	encoderConfig.rhiRateControl = RHI_ENCODER_NV264_DEFAULT_RATECONTROL;
+	encoderConfig.rhiPresetConfig = RHI_ENCODER_NV264_DEFAULT_PRESETCONFIG;
+	encoderConfig.rhiOutBandSPSPPS = RHI_ENCODER_NV264_DEFAULT_OUTBAND_SPSPPS;
+	encoderConfig.rhiNumBFrames = RHI_ENCODER_NV264_DEFAULT_NUM_B_FRAMES;
+	encoderConfig.rhiRecordTimeStamps = RHI_ENCODER_NV264_DEFAULT_RECORD_TIMESTAMPS;
+	encoderConfig.rhiIntraFrameOnRequest = RHI_ENCODER_NV264_DEFAULT_INTRA_FRAME_ON_REQUEST;
+	encoderConfig.rhiUseMaxRCQP = RHI_ENCODER_NV264_DEFAULT_USE_MAX_RCQP;
+	encoderConfig.rhiEnableSubframeEncoding = RHI_ENCODER_NV264_DEFAULT_ENABLE_SUBFRAME_ENCODING;
+	encoderConfig.rhiEnableConstrainedEncoding =  RHI_ENCODER_NV264_DEFAULT_ENABLE_CONSTRAINED_ENCODING;
+	encoderConfig.rhiEnableIntraRefresh = RHI_ENCODER_NV264_DEFAULT_ENABLE_INTRA_REFRESH;
+	encoderConfig.rhiVBVBufferSize = RHI_ENCODER_NV264_DEFAULT_VBV_BUFFER_SIZE;
+	encoderConfig.rhiVBVInitialDelay = RHI_ENCODER_NV264_DEFAULT_VBV_INITIAL_DELAY;
+	encoderConfig.rhiMaxRCQP[0] = RHI_ENCODER_NV264_DEFAULT_MAX_RCQP_0;
+	encoderConfig.rhiMaxRCQP[1] = RHI_ENCODER_NV264_DEFAULT_MAX_RCQP_1;
+	encoderConfig.rhiMaxRCQP[2] = RHI_ENCODER_NV264_DEFAULT_MAX_RCQP_2;
+	encoderConfig.rhiMaxNumRefFrames = RHI_ENCODER_NV264_DEFAULT_NUM_REF_FRAMES;
+	encoderConfig.rhiStereoFormat = RHI_ENCODER_NV264_DEFAULT_STEREO_FORMAT;
+	encoderConfig.rhiSlicingMode = RHI_ENCODER_NV264_DEFAULT_SLICING_MODE;
+	encoderConfig.rhiSlicingModeParam = RHI_ENCODER_NV264_DEFAULT_SLICING_MODE_PARAM;
 
-	//encoderConfig.height;
-	//encoderConfig.width;
-	//encoderConfig.threads;
 	std::cout<< "Rhi -> Encoder initialized with default settings." << std::endl;
 };
 
-rhiEncoderConfigNV RhiInitManager::getEncoderConfig() {
+rhiEncoderArgNV RhiInitManager::getEncoderConfig() {
 	return this->encoderConfig;
 };

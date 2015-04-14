@@ -21,7 +21,7 @@ class RhiInitManager {
 private:
 	int encoderType;
 	rhiServerConfig serverConfig;
-	rhiEncoderConfigNV encoderConfig;
+	rhiEncoderArgNV encoderConfig;
 	libconfig::Config cfg;
 public:
 	RhiInitManager();
@@ -38,7 +38,7 @@ public:
 	// Encoder parameters reading utilities
 	void readEncoderParam();
 	void readEncoderParamDefault();
-	rhiEncoderConfigNV getEncoderConfig();
+	rhiEncoderArgNV getEncoderConfig();
 
 	// Unit test
 	void rhiInitMgrTest();
